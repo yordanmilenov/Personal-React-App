@@ -20,7 +20,6 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { styled } from "@mui/material/styles";
  
 function App() {
   const [itemText, setItemText] = useState("");
@@ -122,7 +121,7 @@ function App() {
             {listItems.map(item => (
               <ListItem key={item._id}>
                 {isUpdating === item._id ? (
-                  <form onSubmit={updateIem} style={{ width: '100%'}}>
+                  <form onSubmit={updateItem} style={{ width: '100%'}}>
                     <TextField 
                         fullWidth
                         id='newItem'
