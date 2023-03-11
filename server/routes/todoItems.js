@@ -32,7 +32,7 @@ router.put('/api/item/:id', async (req,res) => {
     }
 });
 
-router.delete('api/item/:id', async (req,res) => {
+router.delete('/api/item/:id', async (req,res) => {
     try{
         const deleteItem = await todoItemsModel.findByIdAndDelete(req.params.id);
         res.status(200).json('Item Deleted');

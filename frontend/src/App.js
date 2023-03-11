@@ -95,8 +95,9 @@ function App() {
       <Container maxWidth='sm'>
         <Box sx={{ mt:4 }}>
           <Grid container spacing={2} alignItems='center'>
-              <Grid item xs={12} md={8}>
+              <Grid item xs={12} md={8} >
                 <TextField
+                  style={{top: '10px'}}
                   fullWidth
                   id='item'
                   name='item'
@@ -107,6 +108,7 @@ function App() {
               </Grid>
               <Grid item xs={12} md={4}>
                 <Button 
+                    style={{left: '50px', top: '10px'}}
                     fullWidth
                     variant='contained'
                     endIcon={<AddBoxIcon />}
@@ -146,6 +148,7 @@ function App() {
                         <ListItemText primary={item.item} />
                         <ListItemSecondaryAction>
                             <IconButton 
+                              style={{left: '45px'}}
                               edge='end'
                               aria-label='edit'
                               onClick={() => { setIsUpdating(item._id)}}
@@ -153,6 +156,7 @@ function App() {
                               <EditIcon /> 
                             </IconButton>
                             <IconButton
+                                style={{left: '55px'}}
                                 edge='end'
                                 aria-label='delete'
                                 onClick={() => { deleteItem(item._id) }}
