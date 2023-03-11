@@ -85,7 +85,91 @@ function App() {
   };
 
   return (
+    <div>
+      <AppBar position='static' sx={{backgroundColor: '#B87333'}}>
+        <Toolbar >
+          <Typography variant='h4' style={{ fontFamily: 'Times New Roman', fontSize: '60px'}} component='div' sx={{ flexGrow: 1, textAlign: 'center'}}>
+            TO DO APP
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Container maxWidth='sm'>
+        <Box sx={{ mt:4 }}>
+          <Grid container spacing={2} alignItems='center'>
+              <Grid item xs={12} md={8}>
+                <TextField
+                  fullWidth
+                  id='item'
+                  name='item'
+                  label='Add Todo Item'
+                  value={itemText}
+                  onChange={e => { setItemText(e.target.value) }}
+                />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Button 
+                    fullWidth
+                    variant='contained'
+                    endIcon={<AddBoxIcon />}
+                    onClick={addItem}
+                >
+                  Add
+                </Button>
+              </Grid>
+          </Grid>
 
+          <List>
+            {listItems.map(item => (
+              <ListItem key={item._id}>
+                {isUpdating === item._id ? (
+                  <form onSubmit={updateIem} style={{ width: '100%'}}>
+                    <TextField 
+                        fullWidth
+                        id='newItem'
+                        name='newItem'
+                        label='New Item'
+                        value={updateItemText}
+                        onChange={e => { setUpdateItemText(e.target.value)}}
+                    />
+                    <Box sx={{ textAlign: 'end' }}>
+                      <Button 
+                          variant='outlined'
+                          color='primary'
+                          type='submit'
+                          sx={{ mt: 2 }}
+                      >
+                        Edit
+                      </Button>
+                    </Box>
+                  </form>
+                ) : (
+                    <>
+                        <ListItemText primary={item.item} />
+                        <ListItemSecondaryAction>
+                            <IconButton 
+                              edge='end'
+                              aria-label='edit'
+                              onClick={() => { setIsUpdating(item._id)}}
+                            >
+                              <EditIcon /> 
+                            </IconButton>
+                            <IconButton
+                                edge='end'
+                                aria-label='delete'
+                                onClick={() => { deleteItem(item._id) }}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </> 
+                )}
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Container>
+
+    </div>
   )
 }
 
