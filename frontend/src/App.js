@@ -125,6 +125,7 @@ function App() {
                 {isUpdating === item._id ? (
                   <form onSubmit={updateItem} style={{ width: '100%'}}>
                     <TextField 
+                        style={{bottom: '20px'}}
                         fullWidth
                         id='newItem'
                         name='newItem'
@@ -134,6 +135,7 @@ function App() {
                     />
                     <Box sx={{ textAlign: 'end' }}>
                       <Button 
+                          style={{bottom: '30px'}}
                           variant='outlined'
                           color='primary'
                           type='submit'
