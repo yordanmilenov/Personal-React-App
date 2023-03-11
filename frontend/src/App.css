@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+.bodyy{
+  background-image: url(/src/photo.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  height: 500px;
+  position: relative;
+}
 
 .App-logo {
   height: 40vmin;

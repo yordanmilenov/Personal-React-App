@@ -84,7 +84,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div >
       <AppBar position='static' sx={{backgroundColor: '#B87333'}}>
         <Toolbar >
           <Typography variant='h4' style={{ fontFamily: 'Times New Roman', fontSize: '60px'}} component='div' sx={{ flexGrow: 1, textAlign: 'center'}}>
