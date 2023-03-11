@@ -1,5 +1,5 @@
-<h1 textAlign='center'> Todo React App  📝</h1>  
-<p textAlign="center">
+<h1 align='center'> Todo React App  📝</h1>  
+<p align="center">
   🖊️ A simple Todo App built using MERN Stack ( MongoDB, Express , React, Node )</a>
 </p>
 
@@ -17,6 +17,6 @@
 - Fully responsive 
 
 
-<p textalign="center">
+<p align="center">
   Feel free to create issues and contributions for features or bugs to this project.
   </p>
