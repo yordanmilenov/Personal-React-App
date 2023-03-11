@@ -1,22 +1,22 @@
-# Personal React App 
- Simple React Application built with MERN Stack 
-
-<h1 align="center">Todo React App  📝</h1>  
-<p align="center">
+<h1 textalign="center"> Todo React App  📝</h1>  
+<p textalign="center">
   🖊️ A simple Todo App built using MERN Stack ( MongoDB, Express , React, Node )</a>
 </p>
 
-## This is a super simple Todo App built using React.js and styled using Mantine UI.
+## This is simple Todo App built using React.js and styled using Material UI for the fronend part and MongoDB and Node.js for the backend part.
+
+
 
 ## 😃 Features:
 
-- ➕ Add todos
-- 🗑️ Delete todos
+- Add todos
+- Delete todos
 - Edit Todos
-- ⏸ Save todos to Database(MongoDB) when the state changes
-- ▶️ Load the todos from Databasae(MongoDB) when the site is loaded again
+- Save todos to Database(MongoDB) when the state changes
+- Load the todos from Databasae(MongoDB) when the site is loaded again
+- Fully responsive 
 
 
-<p align="center">
-  ❤️ Feel free to create issues and contributions for features or bugs to this project.
-</p>
+<p textalign="center">
+  Feel free to create issues and contributions for features or bugs to this project.
+  </p>
