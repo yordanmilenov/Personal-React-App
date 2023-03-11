@@ -5,7 +5,7 @@
 
 ## This is simple Todo App built using React.js and styled using Material UI for the fronend part and MongoDB and Node.js for the backend part.
 
-![VIDEO](https://github.com/yordanmilenov/Personal-React-App/blob/main/TODO%20React%20App.mov)
+![TODOAPP](https://github.com/yordanmilenov/Personal-React-App/blob/main/Screenshot%202023-03-11%20at%2012.31.09.png)
 
 ## 😃 Features:
 
