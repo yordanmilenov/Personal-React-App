@@ -1,5 +1,5 @@
-<h1 textalign="center"> Todo React App  📝</h1>  
-<p textalign="center">
+<h1 textAlign='center'> Todo React App  📝</h1>  
+<p textAlign="center">
   🖊️ A simple Todo App built using MERN Stack ( MongoDB, Express , React, Node )</a>
 </p>
 
