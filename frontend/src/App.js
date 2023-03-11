@@ -97,7 +97,7 @@ function App() {
           <Grid container spacing={2} alignItems='center'>
               <Grid item xs={12} md={8} >
                 <TextField
-                  style={{top: '10px'}}
+                  style={{top: '10px', left: '30px'}}
                   fullWidth
                   id='item'
                   name='item'
@@ -108,7 +108,7 @@ function App() {
               </Grid>
               <Grid item xs={12} md={4}>
                 <Button 
-                    style={{left: '50px', top: '10px'}}
+                    style={{left: '30px', top: '10px'}}
                     fullWidth
                     variant='contained'
                     endIcon={<AddBoxIcon />}

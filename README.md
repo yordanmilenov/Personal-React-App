@@ -8,8 +8,6 @@
 
 ## This is a super simple Todo App built using React.js and styled using Mantine UI.
 
-
-
 ## 😃 Features:
 
 - ➕ Add todos
