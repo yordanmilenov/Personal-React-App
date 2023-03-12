@@ -29,6 +29,10 @@ function App() {
 
   const addItem = async (e) => { 
     e.preventDefault();
+    if(itemText.length === 0 || itemText.length >= 26) {
+      alert("Item length should be between 1 and 25 characters");
+      return;
+    }
     try {
       const res = await axios.post("http://localhost:5500/api/item",{
         item: itemText,
@@ -66,6 +70,10 @@ function App() {
 
   const updateItem = async (e) => { 
     e.preventDefault();
+    if(updateItemText.length === 0 || updateItemText.length >= 26) {
+      alert("Item length should be between 1 and 25 characters");
+      return;
+    }
     try{
       const res = await axios.put(
         `http://localhost:5500/api/item/${isUpdating}`,
@@ -84,42 +92,40 @@ function App() {
   };
 
   return (
-    <div >
-      <AppBar position='static' sx={{backgroundColor: '#B87333'}}>
-        <Toolbar >
-          <Typography variant='h4' style={{ fontFamily: 'Times New Roman', fontSize: '60px'}} component='div' sx={{ flexGrow: 1, textAlign: 'center'}}>
-            TO DO APP
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <div>
       <Container maxWidth='sm'>
-        <Box sx={{ mt:4 }}>
+        <Box  sx={{ mt:4 }}>
+        <div className='input'>
           <Grid container spacing={2} alignItems='center'>
-              <Grid item xs={12} md={8} >
+              <Grid item spacing={6} xs={12} md={8}>
                 <TextField
-                  style={{top: '10px', left: '30px'}}
+                  style={{top: '85px', left: '40px', rotate: '0.7deg' }}
                   fullWidth
                   id='item'
                   name='item'
                   label='Add Todo Item'
                   value={itemText}
-                  onChange={e => { setItemText(e.target.value) }}
+                  onChange={e => { 
+                    setItemText(e.target.value) 
+                  }
+                }
                 />
               </Grid>
               <Grid item xs={12} md={4}>
                 <Button 
-                    style={{left: '30px', top: '10px'}}
+                    style={{left: '41px', top: '77px', backgroundColor: "#707070",rotate: '0.5deg' }}
                     fullWidth
                     variant='contained'
                     endIcon={<AddBoxIcon />}
                     onClick={addItem}
-                >
+                    >
                   Add
                 </Button>
               </Grid>
           </Grid>
+        </div>
 
-          <List>
+          <List style={{top: '70px', left: '23px'}}>
             {listItems.map(item => (
               <ListItem key={item._id}>
                 {isUpdating === item._id ? (
@@ -150,7 +156,7 @@ function App() {
                         <ListItemText primary={item.item} />
                         <ListItemSecondaryAction>
                             <IconButton 
-                              style={{left: '45px'}}
+                              style={{left: '25px'}}
                               edge='end'
                               aria-label='edit'
                               onClick={() => { setIsUpdating(item._id)}}
@@ -158,7 +164,7 @@ function App() {
                               <EditIcon /> 
                             </IconButton>
                             <IconButton
-                                style={{left: '55px'}}
+                                style={{left: '29px'}}
                                 edge='end'
                                 aria-label='delete'
                                 onClick={() => { deleteItem(item._id) }}

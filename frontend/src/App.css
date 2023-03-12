@@ -1,16 +1,17 @@
 .App {
   text-align: center;
 }
-
+.input{
+  margin-right: 1%;
+}
 .bodyy{
   background-image: url(/src/photo.jpg);
   max-width:100%;
-  height:auto;
+  max-height: 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
-  height: 500px;
   position: relative;
 }
 
