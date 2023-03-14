@@ -5,7 +5,9 @@
 
 ## This is simple Todo App built using React.js and styled using Material UI for the fronend part and MongoDB and Node.js for the backend part.
 
-![TODOAPP](https://github.com/yordanmilenov/Personal-React-App/blob/main/Screenshot%202023-03-12%20at%2010.49.10.png)
+![TODOAPP](https://github.com/yordanmilenov/Personal-React-App/blob/main/Screenshot%202023-03-14%20at%2011.01.05.png)
+
+![TODOAPP](https://github.com/yordanmilenov/Personal-React-App/blob/main/Screenshot%202023-03-14%20at%2010.30.18.png)
 
 ## 😃 Features:
 
@@ -14,7 +16,7 @@
 - Edit Todos
 - Save todos to Database(MongoDB) when the state changes
 - Load the todos from Databasae(MongoDB) when the site is loaded again
-- Fully responsive 
+- Mobile version / Responsive app
 
 
 <p align="center">
