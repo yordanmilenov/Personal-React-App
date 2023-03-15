@@ -1,8 +1,9 @@
 const router = require("express").Router();
 
 const todoItemsModel = require("../models/todoItems");
+const urlPath = "/api/item"
 
-router.post("/api/item", async (req, res) => {
+router.post( urlPath , async (req, res) => {
     try {
         const newItem = new todoItemsModel({
             item: req.body.item,
@@ -10,40 +11,40 @@ router.post("/api/item", async (req, res) => {
         const saveItem = await newItem.save();
         res.status(200).json(saveItem);
     } catch (error) {
-        res.json(error);
+        res.status(404).json({ message: "Something's wrong" });
+        
     }
 });
 
-router.get("/api/items", async (req, res) => {
+router.get(`${urlPath}s`, async (req, res) => {
     try {
         const allTodoItems = await todoItemsModel.find({});
         res.status(200).json(allTodoItems);
     } catch (error) {
-        res.json(error);
+        res.status(404).json({ message: "Something's wrong" });
     }
 });
 
-router.put("/api/item/:id", async (req, res) => {
-    try {
-        const updateItem = await todoItemsModel.findByIdAndUpdate(
-            req.params.id,
+router.put(`${urlPath}/:id`, async (req, res) => {
+        const item = await todoItemsModel.findById(req.params.id);
+        if (!item) {
+            return res.status(404).json({ message: "Item not found" });
+          }
+       const updateItem =  await todoItemsModel.findByIdAndUpdate(
+             req.params.id,
             { $set: req.body }
         );
         res.status(200).json(updateItem);
-    } catch (error) {
-        res.json(error);
-    }
+   
 });
 
-router.delete("/api/item/:id", async (req, res) => {
-    try {
-        const deleteItem = await todoItemsModel.findByIdAndDelete(
-            req.params.id
-        );
-        res.status(200).json("Item Deleted");
-    } catch (error) {
-        res.json(error);
+router.delete(`${urlPath}/:id`, async (req, res) => { 
+    const item = await todoItemsModel.findById(req.params.id);
+    if (!item) {
+        return res.status(404).json({ message: "Item not found" });
     }
+    await todoItemsModel.findByIdAndDelete(req.params.id);
+    res.status(200).json("Item Deleted");
 });
 
 module.exports = router;

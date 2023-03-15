@@ -4,20 +4,21 @@ import axios from "axios";
 import "./App.css";
 
 import {
-    Box,
-    List,
-    ListItem,
-    ListItemText,
-    ListItemSecondaryAction,
-    IconButton,
-    Container,
-    TextField,
-    Button,
-    Grid,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+    errorNotify,
+    errorNotifyLength,
+    deleteNotify,
+    successNotify,
+    editNotify,
+} from "./notifications";
+
+import { Box, List, Container, TextField, Button, Grid } from "@mui/material";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+
+import { useWindowSize } from "./hooks/useWindowSize";
+import { Item } from "./Item";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     const [itemText, setItemText] = useState("");
@@ -25,98 +26,85 @@ function App() {
     const [isUpdating, setIsUpdating] = useState("");
     const [updateItemText, setUpdateItemText] = useState("");
 
+    const { width } = useWindowSize();
+
+    const apiUrl = "http://localhost:5500/api/item";
+
+    const getItemsList = async () => {
+        try {
+            const res = await axios.get(`${apiUrl}s`);
+            setListItems(res.data);
+        } catch (error) {
+            errorNotify();
+        }
+    };
+
+    const checkTextLength = (text) => {
+        if (itemText.length === 0 || itemText.length >= 41) {
+            errorNotifyLength();
+            return false;
+        }
+        return true;
+    };
+
     const addItem = async (e) => {
         e.preventDefault();
-        if (itemText.length === 0 || itemText.length >= 41) {
-            alert("Item length should be between 1 and 40 characters");
+        if (!checkTextLength(itemText)) {
             return;
         }
         try {
-            const res = await axios.post("http://localhost:5500/api/item", {
+            const res = await axios.post(apiUrl, {
                 item: itemText,
             });
             setListItems((prev) => [...prev, res.data]);
             setItemText("");
+            successNotify();
         } catch (error) {
-            console.log(error);
+            errorNotify();
         }
     };
 
-    useEffect(() => {
-        const getItemsList = async () => {
-            try {
-                const res = await axios.get("http://localhost:5500/api/items");
-                setListItems(res.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getItemsList();
-    }, []);
-
     const deleteItem = async (id) => {
         try {
-            const res = await axios.delete(
-                `http://localhost:5500/api/item/${id}`
-            );
+            const res = await axios.delete(`${apiUrl}/${id}`);
             const newListItems = listItems.filter((item) => item._id !== id);
             setListItems(newListItems);
+            deleteNotify();
         } catch (error) {
-            console.log(error);
+            errorNotify();
         }
     };
 
     const updateItem = async (e) => {
         e.preventDefault();
         if (updateItemText.length === 0 || updateItemText.length >= 41) {
-            alert("Item length should be between 1 and 40 characters");
+            errorNotifyLength();
             return;
         }
         try {
-            const res = await axios.put(
-                `http://localhost:5500/api/item/${isUpdating}`,
-                { item: updateItemText }
-            );
-            console.log(res.data);
-            const updateItemIndex = listItems.findIndex(
+            const res = await axios.put(`${apiUrl}/${isUpdating}`, {
+                item: updateItemText,
+            });
+            const updatedListItems = [...listItems];
+            const updateItemIndex = updatedListItems.findIndex(
                 (item) => item._id === isUpdating
             );
-            const updateItem = (listItems[updateItemIndex].item =
-                updateItemText);
+            updatedListItems[updateItemIndex] = {
+                ...updatedListItems[updateItemIndex],
+                item: updateItemText,
+            };
+            setListItems(updatedListItems);
             setUpdateItemText("");
             setIsUpdating("");
+            editNotify();
         } catch (error) {
-            console.log(error);
+            errorNotify();
         }
     };
 
-    // useWindowSizeHook for the width to make it responsive
-    const useWindowSize = () => {
-        const [windowSize, setWindowSize] = React.useState({
-            width: undefined,
-            height: undefined,
-        });
-
-        React.useEffect(() => {
-            const handleResize = () =>
-                setWindowSize({
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                });
-
-            window.addEventListener("resize", handleResize);
-
-            handleResize();
-
-            return () => {
-                window.removeEventListener("resize", handleResize);
-            };
-        }, []);
-
-        return windowSize;
-    };
-
-    const { width, height } = useWindowSize();
+    useEffect(() => {
+        getItemsList();
+    }, []);
 
     return (
         <div className="all">
@@ -128,8 +116,6 @@ function App() {
                                 <TextField
                                     style={{ rotate: "0.7deg" }}
                                     fullWidth
-                                    id="item"
-                                    name="item"
                                     label="Add Todo Item"
                                     value={itemText}
                                     onChange={(e) => {
@@ -151,178 +137,47 @@ function App() {
                                 >
                                     Add
                                 </Button>
+                                <ToastContainer
+                                    position="top-center"
+                                    autoClose={5000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                    theme="colored"
+                                />
                             </Grid>
                         </Grid>
                     </div>
 
                     <div>
-                        {width < 420 ? (
-                            <>
-                                <List
-                                    style={{
-                                        marginLeft: "15%",
-                                        marginTop: "1%",
-                                        width: "120%",
-                                        display: "grid",
-                                        gridTemplateColumns: "auto-fill",
-                                    }}
-                                >
-                                    {listItems.map((item) => (
-                                        <ListItem key={item._id}>
-                                            {isUpdating === item._id ? (
-                                                <form
-                                                    onSubmit={updateItem}
-                                                    style={{ width: "100%" }}
-                                                >
-                                                    <TextField
-                                                        style={{
-                                                            bottom: "20px",
-                                                        }}
-                                                        fullWidth
-                                                        id="newItem"
-                                                        name="newItem"
-                                                        label="New Item"
-                                                        value={updateItemText}
-                                                        onChange={(e) => {
-                                                            setUpdateItemText(
-                                                                e.target.value
-                                                            );
-                                                        }}
-                                                    />
-                                                    <Box
-                                                        sx={{
-                                                            textAlign: "end",
-                                                        }}
-                                                    >
-                                                        <Button
-                                                            style={{
-                                                                bottom: "30px",
-                                                            }}
-                                                            variant="outlined"
-                                                            color="primary"
-                                                            type="submit"
-                                                            sx={{ mt: 2 }}
-                                                        >
-                                                            Edit
-                                                        </Button>
-                                                    </Box>
-                                                </form>
-                                            ) : (
-                                                <>
-                                                    <ListItemText
-                                                        primary={item.item}
-                                                    />
-                                                    <ListItemSecondaryAction>
-                                                        <IconButton
-                                                            edge="end"
-                                                            aria-label="edit"
-                                                            onClick={() => {
-                                                                setIsUpdating(
-                                                                    item._id
-                                                                );
-                                                            }}
-                                                        >
-                                                            <EditIcon />
-                                                        </IconButton>
-                                                        <IconButton
-                                                            edge="end"
-                                                            aria-label="delete"
-                                                            onClick={() => {
-                                                                deleteItem(
-                                                                    item._id
-                                                                );
-                                                            }}
-                                                        >
-                                                            <DeleteIcon />
-                                                        </IconButton>
-                                                    </ListItemSecondaryAction>
-                                                </>
-                                            )}
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </>
-                        ) : (
-                            <List
-                                className="list"
-                                style={{
-                                    marginLeft: "15%",
-                                    marginTop: "1%",
-                                    width: "120%",
-                                    display: "grid",
-                                    gridTemplateColumns: "auto-fill",
-                                    gridGap: "4px",
-                                }}
-                            >
-                                {listItems.map((item) => (
-                                    <ListItem key={item._id}>
-                                        {isUpdating === item._id ? (
-                                            <form
-                                                onSubmit={updateItem}
-                                                style={{ width: "100%" }}
-                                            >
-                                                <TextField
-                                                    style={{ bottom: "20px" }}
-                                                    fullWidth
-                                                    id="newItem"
-                                                    name="newItem"
-                                                    label="New Item"
-                                                    value={updateItemText}
-                                                    onChange={(e) => {
-                                                        setUpdateItemText(
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                />
-                                                <Box sx={{ textAlign: "end" }}>
-                                                    <Button
-                                                        style={{
-                                                            bottom: "30px",
-                                                        }}
-                                                        variant="outlined"
-                                                        color="primary"
-                                                        type="submit"
-                                                        sx={{ mt: 2 }}
-                                                    >
-                                                        Edit
-                                                    </Button>
-                                                </Box>
-                                            </form>
-                                        ) : (
-                                            <>
-                                                <ListItemText
-                                                    primary={item.item}
-                                                />
-                                                <ListItemSecondaryAction>
-                                                    <IconButton
-                                                        edge="end"
-                                                        aria-label="edit"
-                                                        onClick={() => {
-                                                            setIsUpdating(
-                                                                item._id
-                                                            );
-                                                        }}
-                                                    >
-                                                        <EditIcon />
-                                                    </IconButton>
-                                                    <IconButton
-                                                        edge="end"
-                                                        aria-label="delete"
-                                                        onClick={() => {
-                                                            deleteItem(
-                                                                item._id
-                                                            );
-                                                        }}
-                                                    >
-                                                        <DeleteIcon />
-                                                    </IconButton>
-                                                </ListItemSecondaryAction>
-                                            </>
-                                        )}
-                                    </ListItem>
-                                ))}
-                            </List>
-                        )}
+                        <List
+                            className="list"
+                            style={{
+                                marginLeft: "-4%",
+                                marginTop: "1%",
+                                width: "115%",
+                                display: "grid",
+                                gridTemplateColumns: "auto-fill",
+                                gridGap: `${width > 420 ? "4px" : "0px"}`,
+                            }}
+                        >
+                            {listItems.map((item) => (
+                                <Item
+                                    key={item._id}
+                                    item={item}
+                                    isUpdating={isUpdating}
+                                    updateItem={updateItem}
+                                    updateItemText={updateItemText}
+                                    setUpdateItemText={setUpdateItemText}
+                                    setIsUpdating={setIsUpdating}
+                                    deleteItem={deleteItem}
+                                />
+                            ))}
+                        </List>
                     </div>
                 </Box>
             </Container>

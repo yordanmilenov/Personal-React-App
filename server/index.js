@@ -11,9 +11,8 @@ app.use(cors());
 
 mongoose
     .connect("mongodb://localhost/todo")
-    .then(() => console.log("Database connected"))
     .catch((err) => console.log(err));
 
 app.use("/", TodoItemRoute);
 
-app.listen(PORT, () => console.log("Server connected"));
+app.listen(PORT);
