@@ -112,9 +112,9 @@ function App() {
                 <Box sx={{ mt: 4 }}>
                     <div className="input">
                         <Grid container spacing={2} alignItems="center">
-                            <Grid item spacing={6} xs={12} md={8}>
+                            <Grid container item spacing={6} xs={12} md={8}>
                                 <TextField
-                                    style={{ rotate: "0.7deg" }}
+                                    style={{ rotate: "0.7deg", marginLeft: "11%", marginTop: "14%" }}
                                     fullWidth
                                     label="Add Todo Item"
                                     value={itemText}
@@ -157,10 +157,14 @@ function App() {
                         <List
                             className="list"
                             style={{
-                                marginLeft: "-4%",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "baseline",
+                                alignContent: "center",
+                                marginLeft: "1%",
                                 marginTop: "1%",
-                                width: "115%",
-                                display: "grid",
+                                width: "109%",
                                 gridTemplateColumns: "auto-fill",
                                 gridGap: `${width > 420 ? "4px" : "0px"}`,
                             }}
