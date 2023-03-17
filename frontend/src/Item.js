@@ -14,10 +14,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useState } from "react";
 
-const IconWrapper = ({ children, aria, onClick }) => {
+const IconWrapper = ({ children, ariaLabel , onClick, testid }) => {
     return (
         <>
-            <IconButton edge="end" aria-label="{aria}" onClick={onClick}>
+            <IconButton 
+                edge="end"
+                aria-label="{ariaLabel}"
+                onClick={onClick}
+                data-testid={testid}
+            >
                 {children}
             </IconButton>
         </>
@@ -100,7 +105,7 @@ export const Item = ({
                     <ListItemText primary={item.item} />
                     <ListItemSecondaryAction>
                         <IconWrapper
-                            aria="edit"
+                            ariaLabel="edit"
                             onClick={() => {
                                 setIsUpdating(item._id);
                                 handleOpen();
@@ -109,10 +114,11 @@ export const Item = ({
                             <EditIcon />
                         </IconWrapper>
                         <IconWrapper
-                            aria="delete"
+                            ariaLabel="delete"
                             onClick={() => {
                                 deleteItem(item._id);
                             }}
+                            testid="delete-button"
                         >
                             <DeleteIcon />
                         </IconWrapper>
