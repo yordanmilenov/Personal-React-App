@@ -4,7 +4,7 @@ const dotenv = require("dotenv").config();
 const cors = require("cors");
 const TodoItemRoute = require("./routes/todoItems");
 const app = express();
-const PORT = proces.env.PORT || 5500;
+const PORT = process.env.PORT || 5500;
 
 app.use(express.json());
 app.use(cors());
@@ -16,3 +16,6 @@ mongoose
 app.use("/", TodoItemRoute);
 
 app.listen(PORT);
+
+
+module.exports = app;
