@@ -4,7 +4,7 @@ const dotenv = require("dotenv").config();
 const cors = require("cors");
 const TodoItemRoute = require("./routes/todoItems");
 const app = express();
-const PORT = 5500;
+const PORT = proces.env.PORT || 5500;
 
 app.use(express.json());
 app.use(cors());
