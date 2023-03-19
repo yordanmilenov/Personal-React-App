@@ -12,7 +12,6 @@ router.post( urlPath , async (req, res) => {
         res.status(200).json(saveItem);
     } catch (error) {
         res.status(404).json({ message: "Something's wrong" });
-        
     }
 });
 

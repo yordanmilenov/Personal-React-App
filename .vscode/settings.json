@@ -1,0 +1,12 @@
+{
+    "prettier.embeddedLanguageFormatting": "auto",
+    "prettier.requireConfig": true,
+    "prettier.insertPragma": true,
+    "prettier.useEditorConfig": false,
+    "references.preferredLocation": "peek",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+}
