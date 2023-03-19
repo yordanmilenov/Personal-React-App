@@ -106,12 +106,12 @@ function App() {
         getItemsList();
     }, []);
 
-    return (
+    return (        
         <div className="all">
             <Container maxWidth="sm">
                 <Box sx={{ mt: 4 }}>
                     <div className="input">
-                        <Grid container spacing={2} alignItems="center">
+                        <Grid container spacing={2} alignItems="center"> 
                             <Grid container item spacing={6} xs={12} md={8}>
                                 <TextField
                                     style={{ rotate: "0.7deg", marginLeft: "11%", marginTop: "14%" }}

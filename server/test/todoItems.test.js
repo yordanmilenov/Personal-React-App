@@ -4,6 +4,8 @@ const request = require("supertest");
 const chai = require("chai");
 const expect = chai.expect;
 
+const urlPath = "/api/item"
+
 describe("Operations", function () {
     beforeEach(async function () {
         await Item.deleteMany({});
@@ -18,7 +20,7 @@ describe("Operations", function () {
         Item.insertMany(items);
 
         request(app)
-            .get("/api/items")
+            .get(`${urlPath}s`)
             .expect(200)
             .end(function (err, res) {
                 expect(err).to.be.null;
@@ -35,7 +37,7 @@ describe("Operations", function () {
         const item = { item: "Go visit my father" };
 
         request(app)
-            .post("/api/item")
+            .post(urlPath)
             .send(item)
             .expect(200)
             .end(function (err, res) {
@@ -48,7 +50,7 @@ describe("Operations", function () {
 
     it("/POST item unsuccesfull", function (done) {
         request(app)
-            .post("/api/item")
+            .post(urlPath)
             .send()
             .expect(404)
             .end(function (err, res) {
@@ -67,7 +69,7 @@ describe("Operations", function () {
         const updatedItem = { item: "Go pay my gas bill" };
 
         request(app)
-            .put(`/api/item/${newItem._id}`)
+            .put(`${urlPath}/${newItem._id}`)
             .send(updatedItem)
             .expect(200)
             .end(function (err, res) {
@@ -85,7 +87,7 @@ describe("Operations", function () {
         const newItem = new Item({ item: "Go to the grocery store" });
         newItem.save(newItem);
         request(app)
-            .delete(`/api/item/${newItem._id}`)
+            .delete(`${urlPath}/${newItem._id}`)
             .expect(200)
             .end(function (err, res) {
                 if (err) return done(err);
@@ -96,7 +98,7 @@ describe("Operations", function () {
 
     it("/DELETE item unsuccesfull ", function (done) {
         request(app)
-            .delete("/api/item/6415fbe26af10465cca513f1")
+            .delete(`${urlPath}/6415fbe26af10465cca513f1`)
             .expect(404)
             .send()
             .end(function (err, res) {

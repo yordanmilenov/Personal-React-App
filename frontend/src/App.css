@@ -38,9 +38,9 @@ body {
         background-position-x: 51%;
     }
     .all {
-        margin-top: 37%;
+        margin-top: 43%;
         margin-left: 10%;
-        margin-right: -7%;
+        margin-right: -20%;
     }
     .list {
         margin-top: 100px;
@@ -78,10 +78,11 @@ body {
         background-position-x: 25%;
     }
     .all {
-        margin-left: -50%;
+        margin-left: 13%;
         margin-top: 3%;
         width: 350%;
         padding: 30%;
+
     }
     .input {
         flex-shrink: initial;
