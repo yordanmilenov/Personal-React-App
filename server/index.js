@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5500;
 const dbURL  = "mongodb+srv://yordanmilenov:0878884145@cluster0.bvf5cz1.mongodb.net/todos?retryWrites=true&w=majority";
 
 
-
+app.use(express.static('public'))
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
