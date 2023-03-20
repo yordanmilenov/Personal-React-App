@@ -11,10 +11,8 @@ const dbURL  = "mongodb+srv://yordanmilenov:0878884145@cluster0.bvf5cz1.mongodb.
 
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 
-app.get('/ping', (req, res) => {
-    res.send('pong 🏓')
-})
 
 mongoose
     .connect(dbURL)
