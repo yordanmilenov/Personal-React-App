@@ -28,7 +28,7 @@ function App() {
 
     const { width } = useWindowSize();
 
-    const apiUrl = "http://personal-react-app-cck5.vercel.app/api/item";
+    const apiUrl = "https://personal-react-app-cck5.vercel.app/api/item";
 
     const getItemsList = async () => {
         try {
