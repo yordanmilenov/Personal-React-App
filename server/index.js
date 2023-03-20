@@ -5,12 +5,13 @@ const cors = require("cors");
 const TodoItemRoute = require("./routes/todoItems");
 const app = express();
 const PORT = process.env.PORT || 5500;
+const dbURL  = "mongodb://localhost/todo";
 
 app.use(express.json());
 app.use(cors());
 
 mongoose
-    .connect("mongodb://localhost/todo")
+    .connect(dbURL)
     .catch((err) => console.log(err));
 
 app.use("/", TodoItemRoute);
