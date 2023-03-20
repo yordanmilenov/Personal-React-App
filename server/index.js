@@ -5,7 +5,7 @@ const cors = require("cors");
 const TodoItemRoute = require("./routes/todoItems");
 const app = express();
 const PORT = process.env.PORT || 5500;
-const dbURL  = "mongodb://127.0.0.1:27017/todo";
+const dbURL  = "mongodb+srv://yordanmilenov:0878884145@cluster0.bvf5cz1.mongodb.net/?retryWrites=true&w=majority";
 
 
 
