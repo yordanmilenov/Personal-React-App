@@ -1,4 +1,4 @@
-const app = require("../api/index");
+const app = require("../index");
 const Item = require("../models/todoItems");
 const request = require("supertest");
 const chai = require("chai");
