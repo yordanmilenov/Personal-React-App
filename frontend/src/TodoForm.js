@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect, useReducer } from "react";
 
 import { Grid, TextField, Button  } from "@mui/material"
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -9,7 +9,9 @@ import axios from "axios";
 import {
     errorNotify,
     errorNotifyLength,
-    successNotify
+    deleteNotify,
+    successNotify,
+    editNotify,
 } from "./notifications";
 
 
@@ -28,7 +30,16 @@ function TodoForm () {
         return true;
     };
 
+    const getItemsList = async () => {
+        try {
+            const res = await axios.get(`${apiUrl}s`);
+            setListItems(res.data);
+        } catch (error) {
+            errorNotify();
+        }
+    };
 
+    /*
     const addItem = async (e) => {
         e.preventDefault();
         if (!checkTextLength(itemText)) {
@@ -41,11 +52,53 @@ function TodoForm () {
             setListItems((prev) => [...prev, res.data]);
             setItemText("");
             successNotify();
-             
         } catch (error) {
             errorNotify();
         }
     };
+    */
+
+    useEffect(() => {
+        getItemsList();
+    }, []);
+    
+    
+    const initialState = {
+              item: null,
+            };
+
+    function reducer(state, action) {
+        switch (action.type) {
+          case 'ADD':
+            return {
+              ...state,
+              item: [action.payload, itemText],
+            
+            };
+        }
+    }
+        
+        const [state, dispatch] = useReducer(reducer, initialState);
+        
+        const addItem = async (e) => {
+            e.preventDefault();
+            if (!checkTextLength(itemText)) {
+                return;
+            }
+            try {
+                const res = await axios.post(apiUrl, {
+                    item: itemText,
+                });
+                dispatch({
+                    type: 'ADD',
+                    payload: res.data
+                });
+                setItemText("");
+                successNotify();
+            } catch (error) {
+                errorNotify();
+            }
+        };
 
     return (
 
@@ -61,7 +114,7 @@ function TodoForm () {
                         setItemText(e.target.value);
                     }}
                 />
-            </Grid> 
+            </Grid>
             <Grid item xs={12} md={4}>
                 <Button
                     className="addButton"

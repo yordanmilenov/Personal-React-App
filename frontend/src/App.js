@@ -9,9 +9,9 @@ function App() {
     return (        
         <div className="all">
             <Container maxWidth="sm">
-                <Box sx={{ mt: 4 }}>
-                   <TodoForm />
-                   <TodoList /> 
+                <Box sx={{ mt: 4 }}>            
+                    <TodoForm />
+                    <TodoList /> 
                 </Box>
             </Container>
         </div>
